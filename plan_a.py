@@ -1,9 +1,17 @@
 import subprocess
 import time
+import os
 
-def commit_changes(letter):
-    with open("try.txt", "a") as file:
-        file.write(str(letter))
+def commit_changes(i):
+    # Step 0: Open (or create) the file and append "a" to it
+    try:
+        with open("try.txt", "a") as file:
+            file.write(i)
+        print("Successfully wrote to try.txt")
+    except Exception as e:
+        print(f"Failed to write to try.txt: {e}")
+        return  # Exit if file creation fails
+
     try:
         # Step 1: Set Git config for rebase on pull
         subprocess.run(["git", "config", "pull.rebase", "true"], check=True)
@@ -41,6 +49,6 @@ def commit_changes(letter):
     except subprocess.CalledProcessError as e:
         print(f"Error occurred during git operation: {e}")
 
-for i in range(90):
-    commit_changes(i)
-    time.sleep(10)
+# Execute the function
+for i in range(100):
+    commit_changes(str(i))
