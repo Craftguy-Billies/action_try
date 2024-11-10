@@ -34,5 +34,5 @@ def commit_changes(letter):
         print(f"Error occurred during git operation: {e}")
 
 for i in range(30):
-    commit_change(i)
+    commit_changes(i)
     time.sleep(10)
