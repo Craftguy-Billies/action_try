@@ -16,8 +16,8 @@ def commit_changes(i):
         # Step 1: Set Git config for rebase on pull
         subprocess.run(["git", "config", "pull.rebase", "true"], check=True)
 
-        # Step 2: Stash any local changes to avoid rebase conflicts
-        subprocess.run(["git", "stash"], check=True)
+        # Step 2: Stash any untracked and local changes to avoid rebase conflicts
+        subprocess.run(["git", "stash", "--include-untracked"], check=True)
 
         # Step 3: Fetch and rebase changes from GitHub
         subprocess.run(["git", "fetch", "origin"], check=True)
@@ -26,7 +26,7 @@ def commit_changes(i):
         # Step 4: Pop the stashed changes back to the working directory
         subprocess.run(["git", "stash", "pop"], check=True)
 
-        # Step 5: Add all local changes
+        # Step 5: Add all local changes (including untracked try.txt)
         subprocess.run(["git", "add", "--all"], check=True)
 
         # Step 6: Commit local changes
@@ -41,7 +41,7 @@ def commit_changes(i):
                 break
             except subprocess.CalledProcessError:
                 print("Push conflict, attempting to pull and rebase")
-                subprocess.run(["git", "stash"], check=True)
+                subprocess.run(["git", "stash", "--include-untracked"], check=True)
                 subprocess.run(["git", "pull", "--rebase"], check=True)
                 subprocess.run(["git", "stash", "pop"], check=True)
                 retry_count += 1
@@ -52,3 +52,4 @@ def commit_changes(i):
 # Execute the function
 for i in range(30):
     commit_changes(str(i))
+    time.sleep(10)
