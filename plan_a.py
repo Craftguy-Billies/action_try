@@ -41,6 +41,6 @@ def commit_changes(letter):
     except subprocess.CalledProcessError as e:
         print(f"Error occurred during git operation: {e}")
 
-for i in range(70):
+for i in range(90):
     commit_changes(i)
     time.sleep(10)
