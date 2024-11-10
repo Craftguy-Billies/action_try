@@ -3,7 +3,7 @@ import time
 
 def commit_changes(letter):
     with open("try.txt", "a") as file:
-        file.write(letter)
+        file.write(str(letter))
     try:
         # Step 1: Set Git config for rebase on pull
         subprocess.run(["git", "config", "pull.rebase", "true"], check=True)
