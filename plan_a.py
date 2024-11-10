@@ -50,6 +50,6 @@ def commit_changes(i):
         print(f"Error occurred during git operation: {e}")
 
 # Execute the function
-for i in range(30):
+for i in range(50):
     commit_changes(str(i))
     time.sleep(10)
